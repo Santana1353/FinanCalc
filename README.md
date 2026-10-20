@@ -1,151 +1,68 @@
+
 # FinanCalc — Calculadora Financiera
 
-Aplicación web de simulación financiera desarrollada con React, Vite, JavaScript y CSS. Permite calcular préstamos, intereses y proyecciones de ahorro mediante una interfaz interactiva.
+FinanCalc es una aplicación web desarrollada con React, Vite, JavaScript y CSS. Permite realizar simulaciones de préstamos, calcular intereses y proyectar ahorros mediante una interfaz sencilla e interactiva.
 
-## Funcionalidades
+## Funcionalidades principales
 
-- **Préstamos:** cálculo de cuotas mensuales, intereses totales y tabla de amortización.
-- **Interés simple:** cálculo de los intereses generados sobre el capital inicial.
-- **Interés compuesto:** proyección del monto acumulado con capitalización mensual.
-- **Ahorro:** proyección del saldo con aportaciones mensuales al final de cada período.
-- **Selector de moneda:** presentación de importes en DOP, USD, CAD y EUR. No realiza conversión entre divisas.
-- **Validación de datos:** mensajes en español para entradas incorrectas.
-- **Cálculo con tasa del 0 %:** contempla escenarios sin intereses.
-- **Gráfica financiera:** representación visual de la evolución mensual del saldo mediante SVG.
-- **Detalle mensual:** tabla con información de cada período, según el tipo de cálculo.
-- **Historial:** conserva las últimas cinco simulaciones en el navegador mediante `localStorage`.
-- **Copiar resultados:** permite copiar el resumen de una simulación.
-- **Exportar a PDF:** utiliza la función de impresión del navegador. El usuario puede seleccionar «Guardar como PDF».
+- **Préstamos:** calcula las cuotas mensuales, los intereses y el total a pagar. También incluye una tabla de amortización.
+- **Interés simple:** calcula los intereses generados sobre el capital inicial.
+- **Interés compuesto:** muestra cómo crece el capital mediante la capitalización mensual.
+- **Ahorro:** permite calcular el crecimiento del ahorro con aportaciones mensuales.
+- **Selector de moneda:** permite presentar los resultados en pesos dominicanos, dólares estadounidenses, dólares canadienses y euros. No realiza conversiones de divisas.
+- **Validaciones:** muestra mensajes en español cuando los datos introducidos son incorrectos.
+- **Tasa del 0 %:** permite realizar cálculos sin intereses.
+- **Gráfica financiera:** muestra la evolución del saldo durante la simulación.
+- **Historial:** conserva las últimas cinco simulaciones en el navegador.
+- **Copiar resultado:** permite copiar el resumen de los cálculos.
+- **Exportación a PDF:** permite guardar los resultados mediante la opción de impresión del navegador.
 
 ## Tecnologías utilizadas
 
-- React
-- JavaScript
-- Vite
-- HTML5
-- CSS3
-- SVG
-- `localStorage`
+El proyecto utiliza React para construir la interfaz, JavaScript para la lógica de la aplicación, Vite para el entorno de desarrollo y compilación, y CSS para los estilos. También utiliza SVG para la gráfica y localStorage para conservar el historial en el navegador.
 
-## Requisitos
+## Requisitos e instalación
 
-Para instalar y ejecutar el proyecto necesitas:
+Para ejecutar el proyecto se necesita tener instalado Node.js y npm, además de un navegador web actualizado.
 
-- Node.js en una versión compatible con las dependencias.
-- npm, incluido con Node.js.
-- Un navegador web moderno.
+Primero, descarga el repositorio desde GitHub. Después, abre una terminal en la carpeta del proyecto e instala las dependencias con el comando npm install.
 
-## Instalación
-
-Clona el repositorio:
-
-```bash
-git clone https://github.com/Santana1353/FinanCalc.git
-```
-
-Entra en la carpeta del proyecto:
-
-```bash
-cd FinanCalc
-```
-
-Instala las dependencias:
-
-```bash
-npm install
-```
-
-Inicia el servidor de desarrollo:
-
-```bash
-npm run dev
-```
-
-Abre en el navegador la dirección local que indique Vite, normalmente `http://localhost:5173`.
+Para iniciar la aplicación en modo de desarrollo, ejecuta npm run dev. Vite mostrará la dirección local que debes abrir en el navegador, normalmente http://localhost:5173.
 
 ## Compilación para producción
 
-Para comprobar y compilar la aplicación:
+Para comprobar que el proyecto compila correctamente, ejecuta npm run build. Los archivos de producción se generan en la carpeta dist.
 
-```bash
-npm run build
-```
+Si deseas probar esa versión localmente, ejecuta npm run preview y abre la dirección que indique Vite.
 
-Para probar localmente la versión compilada:
+## Organización del proyecto
 
-```bash
-npm run preview
-```
+La carpeta src contiene el código principal de la aplicación.
 
-## Estructura del proyecto
+Dentro de components se encuentran los componentes de la interfaz: CalculatorForm, CalculatorTabs, DetailTable, FinancialChart, Header, HistoryPanel, NumberField y ResultCard.
 
-```text
-FinanCalc/
-├── src/
-│   ├── components/
-│   │   ├── CalculatorForm.jsx
-│   │   ├── CalculatorTabs.jsx
-│   │   ├── DetailTable.jsx
-│   │   ├── FinancialChart.jsx
-│   │   ├── Header.jsx
-│   │   ├── HistoryPanel.jsx
-│   │   ├── NumberField.jsx
-│   │   └── ResultCard.jsx
-│   ├── utils/
-│   │   └── finance.js
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── styles.css
-├── index.html
-├── package.json
-├── package-lock.json
-├── .gitignore
-└── README.md
-```
+La carpeta utils contiene finance.js, donde se encuentran las funciones de formato monetario, validación y cálculo financiero.
+
+App.jsx coordina el funcionamiento de la aplicación, main.jsx inicia React y styles.css contiene los estilos visuales. En la carpeta principal también se encuentran index.html, package.json, package-lock.json y este README.
 
 ## Fórmulas financieras
 
-**Interés simple**
+**Interés simple:** el interés se obtiene multiplicando el capital inicial por la tasa anual y el tiempo.
 
-`I = P × r × t`
+**Interés compuesto:** el capital aumenta mensualmente al incorporar los intereses generados.
 
-El monto total se calcula sumando el capital inicial y los intereses.
+**Préstamos:** la cuota mensual se calcula mediante una fórmula de amortización. Cuando la tasa es del 0 %, el capital se divide entre el número de cuotas.
 
-**Interés compuesto con capitalización mensual**
+**Ahorro:** cada mes se calcula el interés del saldo y después se agrega la aportación mensual.
 
-`A = P × (1 + r/12)^(12t)`
-
-**Préstamo con cuotas mensuales iguales**
-
-`C = P × i / (1 - (1 + i)^(-n))`
-
-Cuando la tasa de interés es del 0 %, la cuota se calcula dividiendo el capital entre el número de meses.
-
-**Ahorro con aportaciones mensuales**
-
-Cada mes se calcula el interés del saldo y después se añade la aportación mensual.
-
-Donde:
-
-- `P`: capital inicial.
-- `r`: tasa anual expresada como decimal.
-- `t`: plazo en años.
-- `i`: tasa mensual expresada como decimal.
-- `n`: número de cuotas mensuales.
-- `C`: cuota mensual.
-- `A`: monto futuro.
-- `I`: interés generado.
-
-La tasa se introduce como porcentaje anual; por ejemplo, `12` representa un 12 %. El plazo se convierte a meses mediante el redondeo de años multiplicados por 12.
+La tasa se introduce como porcentaje anual; por ejemplo, 12 representa un 12 %. El plazo se convierte a meses redondeando el resultado de multiplicar los años por 12.
 
 ## Consideraciones
 
-FinanCalc es una herramienta de simulación. Los resultados no incluyen comisiones, impuestos, seguros ni otros cargos que puedan existir en productos financieros reales.
-
-El selector de moneda cambia el formato de presentación de los importes, pero no convierte divisas. El historial se almacena en el navegador utilizado y no se sincroniza automáticamente entre dispositivos.
+Los resultados son estimaciones y no incluyen comisiones, impuestos, seguros ni otros cargos. El selector de moneda cambia el formato de presentación, pero no convierte divisas. El historial se conserva en el navegador utilizado y no se sincroniza automáticamente con otros dispositivos.
 
 La exportación a PDF depende de las opciones de impresión disponibles en el navegador.
 
 ## Proyecto académico
 
-FinanCalc fue desarrollado como proyecto de práctica para aplicar conceptos de React, componentes, estado, eventos, validación de formularios, cálculos matemáticos y diseño de interfaces.
+FinanCalc fue desarrollado como proyecto académico para aplicar conocimientos de desarrollo web, componentes, gestión de estado, validación de formularios, cálculos matemáticos y diseño de interfaces.
